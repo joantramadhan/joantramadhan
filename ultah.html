@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Selamat Ulang Tahun!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&family=Pacifico&family=Satisfy&display=swap" rel="stylesheet">
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      background: #ffe4e1;
+      padding: 50px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    img {
+      width: 200px;
+      animation: fadeInDown 1.5s ease-out;
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-family: 'Pacifico', cursive;
+      font-size: 42px;
+      margin-top: 20px;
+      animation: fadeIn 2s ease-out;
+    }
+
+    p {
+      font-size: 20px;
+      color: #444;
+      margin: 20px;
+      animation: fadeInUp 2s ease-out;
+    }
+
+    .love-name {
+      font-family: 'Satisfy', cursive;
+      font-size: 60px;
+      color: #d63384;
+      animation: bounceIn 2s ease-out;
+      margin-top: 30px;
+    }
+
+    .pesan-button {
+      display: inline-block;
+      margin-top: 40px;
+      animation: fadeInUp 2.5s ease-out;
+      transition: transform 0.3s;
+    }
+
+    .pesan-button:hover {
+      transform: scale(1.1);
+    }
+
+    .pesan-button img {
+      width: 100px;
+      cursor: pointer;
+      animation: notifikasi 6s ease-in-out infinite;
+    }
+
+    /* BALON-BALON TERBANG */
+    .balon {
+      position: absolute;
+      bottom: -150px;
+      width: 50px;
+      animation: terbang 6s linear infinite;
+      z-index: -1; /* supaya di belakang semua elemen lain */
+    }
+
+    .balon:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+    .balon:nth-child(2) { left: 30%; animation-delay: 2s; animation-duration: 6s; }
+    .balon:nth-child(3) { left: 50%; animation-delay: 4s; animation-duration: 5s; }
+    .balon:nth-child(4) { left: 70%; animation-delay: 1s; animation-duration: 8s; }
+    .balon:nth-child(5) { left: 90%; animation-delay: 3s; animation-duration: 6.5s; }
+
+    @keyframes terbang {
+      0% {
+        transform: translateY(0);
+        opacity: 0;
+      }
+      10% { opacity: 1; }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    /* ANIMASI TAMBAHAN */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounceIn {
+      0% { opacity: 0; transform: scale(0.5); }
+      60% { opacity: 1; transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    /* ANIMASI NOTIFIKASI UNTUK PESAN */
+    @keyframes notifikasi {
+      0%   { transform: scale(1) rotate(0deg); }
+      20%  { transform: scale(1.1) rotate(5deg); }
+      40%  { transform: scale(1) rotate(-5deg); }
+      60%  { transform: scale(1.1) rotate(3deg); }
+      80%  { transform: scale(1) rotate(-3deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+  </style>
+</head>
+<body>
+  <img src="ultah gita/piu.png" alt="Kue Ulang Tahun">
+  <h1>Selamat Ulang Tahun, Gita!</h1>
+
+  <a href="ultah gita/pesan.html" class="pesan-button">
+    <img src="ultah gita/pesan.png" alt="Buka Pesan">
+  </a>
+
+  <!-- BACKSOUND -->
+  <audio id="backsound" src="ultah gita/backsound.mp3" autoplay loop></audio>
+  
+  <script>
+    const backsound = document.getElementById("backsound");
+
+    // Menangani klik pertama kali untuk memutar audio dan menyimpan status
+    document.body.addEventListener("click", () => {
+      if (backsound.paused) {
+        backsound.play().catch(err => {
+          console.log("Autoplay diblokir, menunggu interaksi pengguna.");
+        });
+        localStorage.setItem("backsoundStatus", "playing");  // Menyimpan status audio
+      }
+    }, { once: true });
+
+    // Pastikan audio tetap berjalan ketika halaman dimuat
+    window.addEventListener("load", () => {
+      if (localStorage.getItem("backsoundStatus") === "playing") {
+        backsound.play();  // Melanjutkan audio jika sudah diputar
+      }
+    });
+  </script>
+
+  <!-- BALON-BALON -->
+  <img src="ultah gita/balon1.png" class="balon" style="left: 5%; animation-delay: 0s; animation-duration: 7s;">
+  <img src="ultah gita/balon2.png" class="balon" style="left: 15%; animation-delay: 1.2s; animation-duration: 6.5s;">
+  <img src="ultah gita/balon3.png" class="balon" style="left: 25%; animation-delay: 2.5s; animation-duration: 7.2s;">
+  <img src="ultah gita/balon1.png" class="balon" style="left: 35%; animation-delay: 0.5s; animation-duration: 6.8s;">
+  <img src="ultah gita/balon2.png" class="balon" style="left: 45%; animation-delay: 1.8s; animation-duration: 7s;">
+  <img src="ultah gita/balon3.png" class="balon" style="left: 55%; animation-delay: 3s; animation-duration: 6s;">
+  <img src="ultah gita/balon1.png" class="balon" style="left: 65%; animation-delay: 2.3s; animation-duration: 8s;">
+  <img src="ultah gita/balon2.png" class="balon" style="left: 75%; animation-delay: 1s; animation-duration: 7.4s;">
+  <img src="ultah gita/balon3.png" class="balon" style="left: 25%; width: 40px; animation-delay: 2.5s; animation-duration: 7.2s;">
+  <img src="ultah gita/balon1.png" class="balon" style="left: 95%; animation-delay: 0.8s; animation-duration: 7.8s;">
+</body>
+</html>

@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive untuk HP -->
   <title>Selamat Ulang Tahun!</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script&family=Pacifico&family=Satisfy&display=swap" rel="stylesheet">
   <style>
@@ -9,42 +10,44 @@
       text-align: center;
       font-family: 'Dancing Script', cursive;
       background: #ffe4e1;
-      padding: 50px;
+      padding: 20px; /* dikurangi untuk tampilan mobile */
       overflow: hidden;
       position: relative;
     }
 
     img {
-      width: 200px;
+      width: 180px; /* sedikit dikecilkan agar proporsional di HP */
+      max-width: 80%;
+      height: auto;
       animation: fadeInDown 1.5s ease-out;
     }
 
     h1 {
       color: #ff69b4;
       font-family: 'Pacifico', cursive;
-      font-size: 42px;
-      margin-top: 20px;
+      font-size: 36px;
+      margin-top: 15px;
       animation: fadeIn 2s ease-out;
     }
 
     p {
-      font-size: 20px;
+      font-size: 18px;
       color: #444;
-      margin: 20px;
+      margin: 15px;
       animation: fadeInUp 2s ease-out;
     }
 
     .love-name {
       font-family: 'Satisfy', cursive;
-      font-size: 60px;
+      font-size: 48px;
       color: #d63384;
       animation: bounceIn 2s ease-out;
-      margin-top: 30px;
+      margin-top: 25px;
     }
 
     .pesan-button {
       display: inline-block;
-      margin-top: 40px;
+      margin-top: 30px;
       animation: fadeInUp 2.5s ease-out;
       transition: transform 0.3s;
     }
@@ -54,25 +57,20 @@
     }
 
     .pesan-button img {
-      width: 100px;
+      width: 90px;
+      max-width: 30vw;
       cursor: pointer;
       animation: notifikasi 6s ease-in-out infinite;
     }
 
-    /* BALON-BALON TERBANG */
     .balon {
       position: absolute;
       bottom: -150px;
-      width: 50px;
+      width: 40px;
+      max-width: 10vw;
       animation: terbang 6s linear infinite;
-      z-index: -1; /* supaya di belakang semua elemen lain */
+      z-index: -1;
     }
-
-    .balon:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
-    .balon:nth-child(2) { left: 30%; animation-delay: 2s; animation-duration: 6s; }
-    .balon:nth-child(3) { left: 50%; animation-delay: 4s; animation-duration: 5s; }
-    .balon:nth-child(4) { left: 70%; animation-delay: 1s; animation-duration: 8s; }
-    .balon:nth-child(5) { left: 90%; animation-delay: 3s; animation-duration: 6.5s; }
 
     @keyframes terbang {
       0% {
@@ -86,7 +84,6 @@
       }
     }
 
-    /* ANIMASI TAMBAHAN */
     @keyframes fadeInDown {
       from { opacity: 0; transform: translateY(-30px); }
       to { opacity: 1; transform: translateY(0); }
@@ -108,7 +105,6 @@
       100% { transform: scale(1); }
     }
 
-    /* ANIMASI NOTIFIKASI UNTUK PESAN */
     @keyframes notifikasi {
       0%   { transform: scale(1) rotate(0deg); }
       20%  { transform: scale(1.1) rotate(5deg); }
@@ -116,6 +112,29 @@
       60%  { transform: scale(1.1) rotate(3deg); }
       80%  { transform: scale(1) rotate(-3deg); }
       100% { transform: scale(1) rotate(0deg); }
+    }
+
+    /* Responsive tambahan */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 28px;
+      }
+
+      .love-name {
+        font-size: 36px;
+      }
+
+      .pesan-button img {
+        width: 70px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      img {
+        width: 150px;
+      }
     }
   </style>
 </head>
@@ -133,20 +152,18 @@
   <script>
     const backsound = document.getElementById("backsound");
 
-    // Menangani klik pertama kali untuk memutar audio dan menyimpan status
     document.body.addEventListener("click", () => {
       if (backsound.paused) {
         backsound.play().catch(err => {
           console.log("Autoplay diblokir, menunggu interaksi pengguna.");
         });
-        localStorage.setItem("backsoundStatus", "playing");  // Menyimpan status audio
+        localStorage.setItem("backsoundStatus", "playing");
       }
     }, { once: true });
 
-    // Pastikan audio tetap berjalan ketika halaman dimuat
     window.addEventListener("load", () => {
       if (localStorage.getItem("backsoundStatus") === "playing") {
-        backsound.play();  // Melanjutkan audio jika sudah diputar
+        backsound.play();
       }
     });
   </script>

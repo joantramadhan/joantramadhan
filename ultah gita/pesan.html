@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pesan Ulang Tahun</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #ffe4e1;
+      font-family: 'Pacifico', cursive; /* Font telah diubah */
+      text-align: center;
+      padding: 60px;
+      color: #333;
+    }
+
+    h1 {
+      font-size: 40px;
+      color: #d63384;
+      margin-bottom: 30px;
+    }
+
+    p {
+      font-size: 24px;
+      margin-bottom: 50px;
+      color: #333;
+      opacity: 0; /* Awalnya transparan */
+      transform: translateY(20px); /* Posisi awal sedikit lebih bawah */
+      animation: fadeInUp 2s ease-out forwards;
+    }
+
+    /* Animasi fadeInUp */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px); /* Awal dari bawah */
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0); /* Berhenti di posisi normal */
+      }
+    }
+
+    /* Delay untuk setiap paragraf agar muncul bertahap */
+    p:nth-child(1) {
+      animation-delay: 0.5s;
+    }
+    p:nth-child(2) {
+      animation-delay: 2s;
+    }
+    p:nth-child(3) {
+      animation-delay: 3.5s;
+    }
+    p:nth-child(4) {
+      animation-delay: 5s;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 12px 28px;
+      background-color: #ff69b4;
+      color: white;
+      font-size: 24px;
+      border: none;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #ff1493;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Pesan untuk Gita</h1>
+
+  <!-- Menambahkan elemen audio -->
+  <audio id="backsound" loop>
+    <source src="ultah gita/backsound.mp3" type="audio/mp3"> <!-- Ganti dengan path file musik -->
+    Your browser does not support the audio element.
+  </audio>
+
+  <p>Semoga kamu panjang umur, dimurahkan rezki dan makin pinter piu ku 💖</p>
+  <p>Maaf aku blom bisa ngasih banyak karna blom dapat kerja</p>
+  <p>Semoga hubungan kita langgeng ya.....</p>
+  <p>LOVE YOU</p>
+  <a href="../ultah.html" class="back-button">Kembali</a>
+
+  <script>
+    const backsound = document.getElementById("backsound");
+
+    // Fungsi untuk memulai audio setelah interaksi pertama
+    function playAudio() {
+      // Jika audio belum diputar
+      if (backsound.paused) {
+        backsound.play().catch(err => {
+          console.log("Autoplay diblokir, menunggu interaksi pengguna.");
+        });
+        sessionStorage.setItem("backsoundStatus", "playing"); // Menyimpan status audio
+      }
+    }
+
+    // Event listener untuk memulai audio saat halaman dimuat
+    document.body.addEventListener("click", () => {
+      playAudio(); // Memulai audio saat klik pertama kali
+    });
+
+    // Periksa status audio saat halaman dimuat
+    window.addEventListener("load", () => {
+      if (sessionStorage.getItem("backsoundStatus") === "playing") {
+        backsound.play();  // Melanjutkan audio jika sebelumnya sudah diputar
+      }
+    });
+  </script>
+</body>
+</html>

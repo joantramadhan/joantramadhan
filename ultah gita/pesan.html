@@ -2,45 +2,45 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pesan Ulang Tahun</title>
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #ffe4e1;
-      font-family: 'Pacifico', cursive; /* Font telah diubah */
+      font-family: 'Pacifico', cursive;
       text-align: center;
-      padding: 60px;
+      padding: 20px; /* Dikurangi dari 60px agar tidak terlalu ke atas di HP */
       color: #333;
+      margin: 0;
     }
 
     h1 {
-      font-size: 40px;
+      font-size: 32px; /* Ukuran font lebih besar pada layar lebar */
       color: #d63384;
       margin-bottom: 30px;
     }
 
     p {
-      font-size: 24px;
-      margin-bottom: 50px;
+      font-size: 20px; /* Ukuran font lebih kecil untuk kenyamanan membaca */
+      margin-bottom: 40px;
       color: #333;
-      opacity: 0; /* Awalnya transparan */
-      transform: translateY(20px); /* Posisi awal sedikit lebih bawah */
+      opacity: 0;
+      transform: translateY(20px);
       animation: fadeInUp 2s ease-out forwards;
     }
 
-    /* Animasi fadeInUp */
     @keyframes fadeInUp {
       0% {
         opacity: 0;
-        transform: translateY(20px); /* Awal dari bawah */
+        transform: translateY(20px);
       }
       100% {
         opacity: 1;
-        transform: translateY(0); /* Berhenti di posisi normal */
+        transform: translateY(0);
       }
     }
 
-    /* Delay untuk setiap paragraf agar muncul bertahap */
     p:nth-child(1) {
       animation-delay: 0.5s;
     }
@@ -59,7 +59,7 @@
       padding: 12px 28px;
       background-color: #ff69b4;
       color: white;
-      font-size: 24px;
+      font-size: 22px;
       border: none;
       border-radius: 14px;
       text-decoration: none;
@@ -70,6 +70,22 @@
       background-color: #ff1493;
       transform: scale(1.05);
     }
+
+    /* Media query untuk responsif pada perangkat kecil */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 28px; /* Ukuran font lebih kecil pada layar sempit */
+      }
+
+      p {
+        font-size: 18px; /* Mengurangi ukuran font agar nyaman dibaca */
+      }
+
+      .back-button {
+        font-size: 18px; /* Ukuran font tombol lebih kecil */
+        padding: 10px 20px; /* Mengurangi ukuran padding pada tombol */
+      }
+    }
   </style>
 </head>
 <body>
@@ -77,7 +93,7 @@
 
   <!-- Menambahkan elemen audio -->
   <audio id="backsound" loop>
-    <source src="ultah gita/backsound.mp3" type="audio/mp3"> <!-- Ganti dengan path file musik -->
+    <source src="ultah gita/backsound.mp3" type="audio/mp3">
     Your browser does not support the audio element.
   </audio>
 
@@ -90,26 +106,22 @@
   <script>
     const backsound = document.getElementById("backsound");
 
-    // Fungsi untuk memulai audio setelah interaksi pertama
     function playAudio() {
-      // Jika audio belum diputar
       if (backsound.paused) {
         backsound.play().catch(err => {
           console.log("Autoplay diblokir, menunggu interaksi pengguna.");
         });
-        sessionStorage.setItem("backsoundStatus", "playing"); // Menyimpan status audio
+        sessionStorage.setItem("backsoundStatus", "playing");
       }
     }
 
-    // Event listener untuk memulai audio saat halaman dimuat
     document.body.addEventListener("click", () => {
-      playAudio(); // Memulai audio saat klik pertama kali
+      playAudio();
     });
 
-    // Periksa status audio saat halaman dimuat
     window.addEventListener("load", () => {
       if (sessionStorage.getItem("backsoundStatus") === "playing") {
-        backsound.play();  // Melanjutkan audio jika sebelumnya sudah diputar
+        backsound.play();
       }
     });
   </script>

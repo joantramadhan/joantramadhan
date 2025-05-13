@@ -10,19 +10,19 @@
       background-color: #ffe4e1;
       font-family: 'Pacifico', cursive;
       text-align: center;
-      padding: 20px; /* Dikurangi dari 60px agar tidak terlalu ke atas di HP */
+      padding: 20px;
       color: #333;
       margin: 0;
     }
 
     h1 {
-      font-size: 32px; /* Ukuran font lebih besar pada layar lebar */
+      font-size: 32px;
       color: #d63384;
       margin-bottom: 30px;
     }
 
     p {
-      font-size: 20px; /* Ukuran font lebih kecil untuk kenyamanan membaca */
+      font-size: 20px;
       margin-bottom: 40px;
       color: #333;
       opacity: 0;
@@ -74,16 +74,16 @@
     /* Media query untuk responsif pada perangkat kecil */
     @media (max-width: 600px) {
       h1 {
-        font-size: 28px; /* Ukuran font lebih kecil pada layar sempit */
+        font-size: 28px;
       }
 
       p {
-        font-size: 18px; /* Mengurangi ukuran font agar nyaman dibaca */
+        font-size: 18px;
       }
 
       .back-button {
-        font-size: 18px; /* Ukuran font tombol lebih kecil */
-        padding: 10px 20px; /* Mengurangi ukuran padding pada tombol */
+        font-size: 18px;
+        padding: 10px 20px;
       }
     }
   </style>
@@ -91,9 +91,9 @@
 <body>
   <h1>Pesan untuk Gita</h1>
 
-  <!-- Menambahkan elemen audio -->
+  <!-- Menambahkan elemen audio dengan sumber backsound2.opus -->
   <audio id="backsound" loop>
-    <source src="ultah gita/backsound.mp3" type="audio/mp3">
+    <source src="ultah gita/backsound2.opus" type="audio/opus">
     Your browser does not support the audio element.
   </audio>
 

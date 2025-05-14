@@ -140,26 +140,32 @@
     <img src="ultah gita/pesan.png" alt="Buka Pesan">
   </a>
 
-  <audio id="backsound" src="ultah gita/backsound.mp3" autoplay loop></audio>
+  <!-- BACKSOUND -->
+<audio id="backsound" src="ultah gita/backsound.mp3" autoplay loop muted></audio>
 
-  <script>
-    const backsound = document.getElementById("backsound");
+<script>
+  const backsound = document.getElementById("backsound");
 
-    document.body.addEventListener("click", () => {
-      if (backsound.paused) {
-        backsound.play().catch(() => {
-          console.log("Autoplay diblokir, menunggu interaksi pengguna.");
+  window.addEventListener("load", () => {
+    // Trik: autoplay dimulai dalam keadaan muted
+    // lalu dimatikan muted-nya setelah load
+    backsound.muted = false;
+
+    // Coba putar backsound
+    const playPromise = backsound.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          // Kalau berhasil, simpan statusnya
+          localStorage.setItem("backsoundStatus", "playing");
+        })
+        .catch((err) => {
+          console.log("Autoplay masih diblokir oleh browser:", err);
         });
-        localStorage.setItem("backsoundStatus", "playing");
-      }
-    }, { once: true });
+    }
+  });
+</script>
 
-    window.addEventListener("load", () => {
-      if (localStorage.getItem("backsoundStatus") === "playing") {
-        backsound.play();
-      }
-    });
-  </script>
 
   <!-- BALON-BALON -->
   <img src="ultah gita/balon1.png" class="balon" style="left: 5%; animation-delay: 0s; animation-duration: 7s;">

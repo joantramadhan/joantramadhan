@@ -31,14 +31,8 @@
     }
 
     @keyframes fadeInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     p:nth-of-type(1) { animation-delay: 0.5s; }
@@ -56,7 +50,6 @@
       border-radius: 14px;
       text-decoration: none;
       transition: background-color 0.3s ease, transform 0.3s ease;
-      margin-top: 40px;
     }
 
     .back-button:hover {
@@ -64,80 +57,74 @@
       transform: scale(1.05);
     }
 
-    .audio-control {
-      margin-top: 20px;
-    }
-
-    .audio-btn {
-      background-color: #ff1493;
-      border: none;
+    #audio-control {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background-color: #ff69b4;
       color: white;
-      font-size: 22px;
-      border-radius: 50px;
-      padding: 10px 30px;
+      border: none;
+      font-size: 18px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .audio-btn:hover {
-      background-color: #c71585;
-      transform: scale(1.05);
     }
 
     @media (max-width: 600px) {
       h1 { font-size: 28px; }
       p { font-size: 18px; }
-      .back-button, .audio-btn {
-        font-size: 18px;
-        padding: 10px 20px;
-      }
+      .back-button { font-size: 18px; padding: 10px 20px; }
     }
   </style>
 </head>
 <body>
   <h1>Pesan untuk Gita</h1>
 
-  <audio id="backsound" loop autoplay muted>
+  <audio id="backsound" loop>
     <source src="ultah gita/backsound2.opus" type="audio/opus">
-    Your browser does not support the audio element.
+    Browser kamu tidak mendukung audio.
   </audio>
 
   <p>Semoga kamu panjang umur, dimurahkan rezki dan makin pinter piu ku 💖</p>
   <p>Maaf aku blom bisa ngasih banyak karna blom dapat kerja</p>
   <p>Semoga hubungan kita langgeng ya.....</p>
   <p>LOVE YOU</p>
-
-  <div class="audio-control">
-    <button id="audioBtn" class="audio-btn">🔇 Play Musik</button>
-  </div>
-
   <a href="../ultah.html" class="back-button">Kembali</a>
+
+  <button id="audio-control">Mainkan Musik</button>
 
   <script>
     const backsound = document.getElementById("backsound");
-    const audioBtn = document.getElementById("audioBtn");
+    const button = document.getElementById("audio-control");
+
+    let isPlaying = false;
 
     window.addEventListener("load", () => {
-      backsound.muted = false;
-      const promise = backsound.play();
-      if (promise !== undefined) {
-        promise.then(() => {
-          audioBtn.textContent = "🔊 Pause Musik";
-        }).catch(() => {
-          // Autoplay mungkin gagal, tunggu klik
-          audioBtn.textContent = "🔇 Play Musik";
-        });
+      const status = sessionStorage.getItem("backsoundStatus");
+      const time = parseFloat(sessionStorage.getItem("backsoundTime")) || 0;
+      backsound.currentTime = time;
+
+      if (status === "playing") {
+        // Butuh klik untuk play di Safari
+        button.textContent = "Mainkan Musik";
       }
     });
 
-    audioBtn.addEventListener("click", () => {
+    button.addEventListener("click", () => {
       if (backsound.paused) {
         backsound.play();
-        audioBtn.textContent = "🔊 Pause Musik";
+        button.textContent = "Pause Musik";
+        isPlaying = true;
+        sessionStorage.setItem("backsoundStatus", "playing");
       } else {
         backsound.pause();
-        audioBtn.textContent = "🔇 Play Musik";
+        button.textContent = "Mainkan Musik";
+        isPlaying = false;
+        sessionStorage.setItem("backsoundStatus", "paused");
       }
+    });
+
+    window.addEventListener("beforeunload", () => {
+      sessionStorage.setItem("backsoundTime", backsound.currentTime);
     });
   </script>
 </body>

@@ -59,22 +59,6 @@
       animation: notifikasi 6s ease-in-out infinite;
     }
 
-    /* BACKGROUND SOUND BUTTON */
-    #audio-control {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    #audio-control:hover {
-      background-color: #ff1493;
-    }
-
     /* BALON-BALON TERBANG */
     .balon {
       position: absolute;
@@ -146,32 +130,23 @@
   <!-- BACKSOUND -->
   <audio id="backsound" src="ultah gita/backsound.mp3" autoplay loop></audio>
   
-  <button id="audio-control">Matikan Musik</button>
-
   <script>
     const backsound = document.getElementById("backsound");
-    const audioControlButton = document.getElementById("audio-control");
 
-    // Menangani klik tombol untuk mematikan atau menghidupkan audio
-    audioControlButton.addEventListener("click", () => {
+    // Menangani klik pertama kali untuk memutar audio dan menyimpan status
+    document.body.addEventListener("click", () => {
       if (backsound.paused) {
         backsound.play().catch(err => {
           console.log("Autoplay diblokir, menunggu interaksi pengguna.");
         });
-        audioControlButton.textContent = "Matikan Musik";
         localStorage.setItem("backsoundStatus", "playing");  // Menyimpan status audio
-      } else {
-        backsound.pause();
-        audioControlButton.textContent = "Mainkan Musik";
-        localStorage.setItem("backsoundStatus", "paused");  // Menyimpan status audio
       }
-    });
+    }, { once: true });
 
-    // Memastikan audio dimulai jika halaman dimuat dan statusnya masih "playing"
+    // Pastikan audio tetap berjalan ketika halaman dimuat
     window.addEventListener("load", () => {
       if (localStorage.getItem("backsoundStatus") === "playing") {
         backsound.play();  // Melanjutkan audio jika sudah diputar
-        audioControlButton.textContent = "Matikan Musik";
       }
     });
   </script>
